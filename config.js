@@ -1,4 +1,5 @@
 const { initializeApp } = require('firebase/app');
+require('dotenv').config();
 const {
   getFirestore,
   doc,
@@ -14,27 +15,24 @@ const {
 } = require('firebase/storage');
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCo9lIn6Zim3kccqHsIoL-RHbiWfP-_C3g',
-  authDomain: 'doclock-api.firebaseapp.com',
-  projectId: 'doclock-api',
-  storageBucket: 'doclock-api.firebasestorage.app',
-  messagingSenderId: '1040201510950',
-  appId: '1:1040201510950:web:f147d859adcb5265acf6e7',
-  measurementId: 'G-K0M2V4ZG0M',
+  apiKey: process.env.FIREBASE_API_KEY,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENTID,
 };
 
 let app;
 let firestoreDb;
 
 const initializeFirebaseApp = () => {
-  if (!getApps().length) {
-    // Initialize only if no apps are initialized
-    initializeApp({
-      credential: applicationDefault(), // or use service account credential
-    });
-    firestoreDb = getFirestore();
-  } else {
-    console.log('Firebase app already initialized.');
+  try {
+    app = initializeApp(firebaseConfig);
+    firestoreDb = getFirestore(app);
+  } catch (error) {
+    console.log('Firebase app initialization failed: ', error);
   }
 };
 
