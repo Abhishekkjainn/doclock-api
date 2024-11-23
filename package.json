@@ -1,0 +1,15 @@
+{
+  "name": "doclock-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Abhishek Jain",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "firebase": "^11.0.2"
+  }
+}
