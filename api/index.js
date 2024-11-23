@@ -268,6 +268,5 @@ app.get('/api/deleteuser/:userid', async (req, res) => {
 });
 
 app.listen(port, () => {
-  initializeFirebaseApp();
   console.log(`Server is running on port ${port}`);
 });
