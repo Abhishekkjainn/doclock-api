@@ -24,13 +24,17 @@ const firebaseConfig = {
 };
 
 let app;
+let firestoreDb;
 
 const initializeFirebaseApp = () => {
-  try {
-    app = initializeApp(firebaseConfig);
-    firestoreDb = getFirestore(app);
-  } catch (error) {
-    console.log('Firebase app initialization failed: ', error);
+  if (!getApps().length) {
+    // Initialize only if no apps are initialized
+    initializeApp({
+      credential: applicationDefault(), // or use service account credential
+    });
+    firestoreDb = getFirestore();
+  } else {
+    console.log('Firebase app already initialized.');
   }
 };
 
